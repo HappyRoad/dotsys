@@ -59,7 +59,7 @@ func (dot *Dot) Add(key string, value int64) {
 func (dot *Dot) start() {
 	var e error = nil
 
-	t := time.NewTicker(time.Second * 3)
+	t := time.NewTicker(time.Second * 10)
 	for {
 		select {
 		case <-t.C:

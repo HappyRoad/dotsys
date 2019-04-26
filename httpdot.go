@@ -27,7 +27,7 @@ type HttpHeartBeat struct {
 func NewHttpDot(name string) (dot *Dot, err error) {
 	hb := &HttpHeartBeat{
 		client: &http.Client{
-			Timeout: time.Millisecond * 30,
+			Timeout: time.Second * 5,
 		},
 		name: name,
 	}
