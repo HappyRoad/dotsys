@@ -4,37 +4,33 @@ import (
 	"flag"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
-	"net/http"
+	"log"
 	"os"
 )
 
-func HeartBeat(c *gin.Context){
-	var data dotsys.Request
-	if err := c.ShouldBindJSON(&data); err != nil {
-		c.Status(http.StatusBadRequest)
-		return
-	}
-
-}
-
-
 var (
-	port = flag.Int("port", 7777, "port")
-	help = flag.Bool("h", false, "help")
-	mysql = flag.String("mysql", "127.0.0.1:3306", "mysql address")
+	port  = flag.Int("port", 7777, "port")
+	help  = flag.Bool("h", false, "help")
+	mysql = flag.String("mysql", "root:root@(127.0.0.1:3306)", "mysql address")
 )
 
 func main() {
 	flag.Parse()
-	if len(os.Args) == 1 || *help {
+
+	gin.SetMode(gin.ReleaseMode)
+
+	if *help {
 		flag.Usage()
 		os.Exit(0)
 	}
 	r := gin.Default()
 
-	r.POST("/heartbeat", HeartBeat)
+	server, err := NewServer(*mysql)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	r.POST("/heartbeat", server.HeartBeat)
 
 	r.Run(fmt.Sprintf(":%d", *port))
 }

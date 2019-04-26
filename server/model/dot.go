@@ -1,15 +1,25 @@
 package model
 
 import (
-	"github.com/jinzhu/gorm"
+	"github.com/HappyRoad/dotsys"
+	"time"
 )
 
 type Dot struct {
-	gorm.Model
-
-	Project string `gorm:"unique;not null"`
-	Name string `gorm:"unique;not null"`
-	Host string `gorm:"unique;not null"`
+	Project string `gorm:"primary_key"`
+	Host string `gorm:"primary_key"`
 	Ip string
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	DeletedAt *time.Time `sql:"index"`
+}
 
+func NewDot(request dotsys.Request)(dot *Dot){
+	dot = &Dot{
+		Project: request.Project,
+		Host: request.Host,
+		Ip: request.Ip,
+	}
+
+	return
 }

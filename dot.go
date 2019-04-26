@@ -20,14 +20,13 @@ func init() {
 type Request struct {
 	Host      string           `json:"host"`
 	Ip        string           `json:"ip"`
-	Project      string           `json:"project"`
+	Project   string           `json:"project"`
 	DotValues map[string]int64 `json:"dot_values"`
 }
 
 type IHeartBeat interface {
 	HeartBeat() error
 }
-
 
 type Dot struct {
 	mutex     sync.Mutex

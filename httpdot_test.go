@@ -1,16 +1,13 @@
 package dotsys
 
 import (
-	"io/ioutil"
-	"log"
-	"net/http"
 	"sync"
 	"testing"
 	"time"
 )
 
 func TestHttpDot(t *testing.T) {
-	go func() {
+	/*go func() {
 		http.HandleFunc("/heartbeat", func(w http.ResponseWriter, r *http.Request) {
 			result, _ := ioutil.ReadAll(r.Body)
 			r.Body.Close()
@@ -19,7 +16,7 @@ func TestHttpDot(t *testing.T) {
 
 		http.ListenAndServe(":7777", nil)
 	}()
-
+	*/
 	time.Sleep(time.Second * 3)
 
 	dot, err := NewHttpDot("test")

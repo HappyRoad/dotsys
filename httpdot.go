@@ -29,7 +29,7 @@ func NewHttpDot(name string) (dot *Dot, err error) {
 		client: &http.Client{
 			Timeout: time.Millisecond * 30,
 		},
-		name:   name,
+		name: name,
 	}
 	hb.dot, _ = newDot(hb)
 
@@ -40,7 +40,7 @@ func (hb HttpHeartBeat) HeartBeat() error {
 	request := &Request{
 		Host:      HostName,
 		Ip:        Ip,
-		Project:      hb.name,
+		Project:   hb.name,
 		DotValues: hb.dot.getDotValues(),
 	}
 	res, err := hb.client.Post(DotServerURL, "application/json", request.ToBuffer())
